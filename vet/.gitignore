@@ -8,7 +8,7 @@ __pycache__/
 
 env/
 venv/
-.venv/
+..venv/
 vet/vet
 staticfiles_collected/
 staticfiles/
