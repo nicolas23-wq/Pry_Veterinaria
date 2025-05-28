@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+
+env/
+venv/
+.venv/
+
+
+.env                # Si usas django-environ o python-decouple
+*.env               # Patrón para cualquier archivo con extensión .env
+local_settings.py   # Si usas un archivo de configuración local separado para credenciales
+
+
+*.log
+*.prof
+
+# Archivos de compilación de mensajes (Django i18n)
+*.pot
+*.mo
+
+# Directorios de archivos estáticos y media generados
+/media/             # Archivos subidos por usuarios
+/static_collected/  # Si usas collectstatic en desarrollo
+staticfiles/        # Otro nombre común para la carpeta de estáticos recolectados
+
+# IDEs y Editores de Código
+.idea/              # PyCharm/IntelliJ
+.vscode/            # Visual Studio Code
+*.sublime-project
+*.sublime-workspace
+.project
+.directory
+
+# Archivos específicos de sistemas operativos
+.DS_Store           # macOS
+.Trashes
+Thumbs.db
