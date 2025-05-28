@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+  Pago
+{% endblock %}
+
+{% block content %}
+  <h1>Pago</h1>
+  <div class="order-info">
+    <h3>Su orden</h3>
+    <ul>
+      {% for item in cart %}
+        <li>
+          {{ item.quantity }}x {{ item.product.name }}
+          <span>${{ item.total_price }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    <p>Total: ${{ cart.get_total_price }}</p>
+  </div>
+  <form method="post" class="order-form">
+    {{ form.as_p }}
+    <p><input type="submit" value="Realizar pedido"></p>
+    {% csrf_token %} <!--es para seguridad, para evitar ataques CSRF-->
+  </form>
+{% endblock %}

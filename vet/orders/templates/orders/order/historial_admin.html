@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Historial de Ventas (Administración)</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Cliente</th>
+    <th>Fecha</th>
+    <th>Total</th>
+    <th>Estado</th>
+  </tr>
+  {% for orden in ordenes %}
+    <tr>
+      <td>{{ orden.id }}</td>
+      <td>{{ orden.email }}</td>
+      <td>{{ orden.created }}</td>
+      <td>${{ orden.total }}</td>
+      <td>{{ orden.status }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
