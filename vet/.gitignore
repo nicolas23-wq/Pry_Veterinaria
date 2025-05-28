@@ -9,7 +9,7 @@ __pycache__/
 env/
 venv/
 .venv/
-
+vet/vet
 
 .env                # Si usas django-environ o python-decouple
 *.env               # Patrón para cualquier archivo con extensión .env
