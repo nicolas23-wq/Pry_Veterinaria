@@ -31,10 +31,18 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="smnsmnsmn123456789")
 DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = []
-if not DEBUG:
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOST")
+
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
+    ALLOWED_HOSTS.append('127.0.0.1')
+    # Puedes añadir más hosts de desarrollo si los usas, ej. '0.0.0.0'
 else:
-    ALLOWED_HOSTS= ['localhost', '127.0.0.1']
+    # Para producción en Render (cuando DEBUG es False)
+    # Render proporciona una variable de entorno con el hostname externo de tu app
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_EXTERNAL_HOSTNAME:
+        # Si la variable existe, añade el hostname de Render a la lista
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
