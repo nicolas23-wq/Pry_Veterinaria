@@ -32,7 +32,7 @@ DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOST").split(",")
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOST")
 else:
     ALLOWED_HOSTS= ['localhost', '127.0.0.1']
 
