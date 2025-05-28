@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -30,6 +31,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="smnsmnsmn123456789")
 DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOST").split(",")
+else:
+    ALLOWED_HOSTS= ['localhost', '127.0.0.1']
+
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -89,17 +95,27 @@ WSGI_APPLICATION = 'vet.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
+if DEBUG:
+    DATABASES = {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'veterinaria',
         'USER': 'postgres',  
         'PASSWORD': '1234',  
         'HOST': 'localhost',
         'PORT': '5432',
+        } 
     }
-}
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'), # Asegúrate de que esta variable esté en Render
+            conn_max_age=600 # Para mantener conexiones de DB vivas por más tiempo
+        )
+    }
+        
+
+
 
 
 # Password validation
