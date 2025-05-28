@@ -11,6 +11,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from .models import Order
 from django import forms
+import weasyprint
 
 class ConsultaHistorialForm(forms.Form):
     email = forms.EmailField(label="Correo electrónico")
@@ -26,7 +27,7 @@ def historial_ventas_cliente(request):
         form = ConsultaHistorialForm()
     return render(request, 'orders/order/historial_clientes.html', {'form': form, 'ordenes': ordenes})
 
-@staff_member_required
+@staff_member_required 
 def historial_ventas_admin(request):
     ordenes = Order.objects.all().order_by('-created')
     return render(request, 'orders/historial_admin.html', {'ordenes': ordenes})
@@ -67,5 +68,17 @@ def order_create(request):
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, "admin/orders/order/detail.html", {"order":order})
+
+@staff_member_required
+def admin_order_pdf(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    html = render_to_string('orders/order/pdf.html',
+                            {'order': order})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response,
+        stylesheets=[weasyprint.CSS(
+            settings.STATIC_ROOT / 'css/pdf.css')])
+    return response
 
 # Create your views here.

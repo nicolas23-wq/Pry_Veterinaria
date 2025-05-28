@@ -9,4 +9,7 @@ urlpatterns = [
                                         name='admin_order_detail'),
     path('historial/', views.historial_ventas_cliente, name='historial_ventas_cliente'),
     path('historial_admin/', views.historial_ventas_admin, name='historial_ventas_admin'),
+    path('admin/order/<int:order_id>/pdf/',
+         views.admin_order_pdf,
+         name='admin_order_pdf'),
 ]

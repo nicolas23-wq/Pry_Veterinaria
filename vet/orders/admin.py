@@ -38,6 +38,13 @@ def export_to_csv(modeladmin, request, queryset):
             data_row.append(value)
         writer.writerow(data_row)
     return response
+
+def order_pdf(obj):
+    url = reverse('orders:admin_order_pdf', args=[obj.id]) #GENERA DINAMICAMENTE APARTIR DE LA URL
+    return mark_safe(f'<a href="{url}">PDF</a>')
+order_pdf.short_description = 'Invoice'
+
+
 export_to_csv.short_description = 'Export to CSV'
 
 order_payment.short_description = 'Stripe payment'
