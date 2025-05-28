@@ -57,7 +57,7 @@ class OrderItemInline(admin.TabularInline): #ajuste de visualizacion dentro de l
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'Nombre', 'Apellido', 'email', 'Dirrecion', 'Codigo_postal', 'Ciudad', "paid", order_payment, 'created', 'updated', order_detail]
+    list_display = ['id', 'Nombre', 'Apellido', 'email', 'Dirrecion', 'Codigo_postal', 'Ciudad', "paid", order_payment, 'created', 'updated', order_detail, order_pdf]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions = [export_to_csv]
