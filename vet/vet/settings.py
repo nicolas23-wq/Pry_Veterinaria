@@ -44,6 +44,11 @@ else:
         # Si la variable existe, añade el hostname de Render a la lista
         ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+if not DEBUG:
+    DOMINIO = os.environ.get('RENDER_EXTERNAL_HOSTNAME') # O tu dominio personalizado si lo tienes
+else:
+    DOMINIO = 'http://127.0.0.1:8000'
+
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -180,7 +185,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'   
 STRIPE_PUBLISHEABLE_KEY = os.environ.get('STRIPE_PUBLISHEABLE_KEY')
-STRIPE_SECRET_KEY ="sk_test_51ROp4e2ZqshnvGy0R2b1f0vbGDcH83Y58eTidEleyaIfS9lkCQq9wuofx7YjG8mQ8Pkjp1wEI8vGA3eIOSdhmuXR004l1z3TtM"
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_API_VERSION = '2022-11-15'  # Cambiar a la versión de producción
 STRIPE_WEBHOOK_SECRET = "whsec_07fb2047fb7e4499e73e23d857f72267249ad404a6270e998acabb046d764e63"
 CART_SESSION_ID = 'cart'
