@@ -30,7 +30,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY", default="smnsmnsmn123456789")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = "RENDER" not in os.environ
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'veterinaria-64bc.onrender.com',
+    '127.0.0.1', 'localhost', 
+]
 
 if DEBUG:
     ALLOWED_HOSTS.append('localhost')
@@ -44,10 +47,14 @@ else:
         # Si la variable existe, añade el hostname de Render a la lista
         ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-if not DEBUG:
-    DOMINIO = os.environ.get('RENDER_EXTERNAL_HOSTNAME') # O tu dominio personalizado si lo tienes
+if not DEBUG: # Asegúrate que DEBUG sea False en producción
+    RENDER_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_HOSTNAME:
+        YOUR_DOMAIN = f"https://{"veterinaria-64bc.onrender.com"}" # ¡Asegúrate del HTTPS!
+    else:
+        raise ValueError("RENDER_EXTERNAL_HOSTNAME no definida. ¿Estás en Render?")
 else:
-    DOMINIO = 'http://127.0.0.1:8000'
+    YOUR_DOMAIN = 'http://127.0.0.1:8000'
 
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
